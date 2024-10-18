@@ -46,10 +46,10 @@ include 'connection.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Toastr CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-<!-- Toastr JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
     <style>
@@ -117,7 +117,7 @@ include 'connection.php';
                 <!-- Navbar Search -->
 
                 <!-- <li class="mr-2" data-toggle="dropdown">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" width="40" height="40">
+                    <img src=dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" width="40" height="40">
                     <span class="name_user text-dark"><?php echo $_SESSION["user"]; ?></span>
                     <div class="position-relative">
                         <div class="dropdown-menu droppdown-menu-right mt-2">
@@ -164,7 +164,7 @@ include 'connection.php';
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-               <?php if($_SESSION['role'] == 'admin'):?>
+                        <?php if ($_SESSION['role'] == 'admin'): ?>
                         <li class="nav-item">
                             <a href="index.php" class="nav-link btnhover1">
                                 <i class="nav-icon fas fa-th"></i>
@@ -241,12 +241,12 @@ include 'connection.php';
                                 </li>
                             </ul>
 
-  </li>
-  <?php endif; ?>
-  <!-- close  -->
+                        </li>
+                        <?php endif; ?>
+                        <!-- close  -->
 
-  <?php if($_SESSION['role'] == 'admin'):?>
-  <li class="nav-item">
+                        <?php if ($_SESSION['role'] == 'admin'): ?>
+                        <li class="nav-item">
                             <a href="score_list.php" class="nav-link btnhover1">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
@@ -267,9 +267,9 @@ include 'connection.php';
                         <!-- User page -->
 
 
-  <?php if($_SESSION['role'] == 'user'):?>
+                        <?php if ($_SESSION['role'] == 'user'): ?>
 
-  <li class="nav-item">
+                        <li class="nav-item">
                             <a href="#" class="nav-link btnhover1">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
@@ -282,7 +282,7 @@ include 'connection.php';
                                 <li class="nav-item">
                                     <a href="Classlist.php" class="nav-link">
                                         <p class="stu-list text-white pl-2">
-                                          បញ្ជូលពិន្ទុ</p>
+                                            បញ្ជូលពិន្ទុ</p>
                                     </a>
                                 </li>
                             </ul>
@@ -299,7 +299,7 @@ include 'connection.php';
 
 
 
-                        <?php if($_SESSION['role'] == 'user'):?>
+                        <?php if ($_SESSION['role'] == 'user'): ?>
                         <li class="nav-item">
                             <a href="#" class="nav-link btnhover1">
                                 <i class="nav-icon fas fa-tasks"></i>
@@ -337,7 +337,7 @@ include 'connection.php';
                         <?php endif; ?>
 
 
-                        <?php if($_SESSION['role'] == 'admin'):?>
+                        <?php if ($_SESSION['role'] == 'admin'): ?>
                         <li class="nav-item">
                             <a href="#" class="nav-link btnhover1">
                                 <i class="nav-icon fas fa-calendar"></i>
@@ -349,9 +349,9 @@ include 'connection.php';
                             <ul class="nav nav-treeview "
                                 style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
                                 <li class="nav-item">
-                                    <a href="schedule_tea.php" class="nav-link ">
+                                    <a href="sch_add.php" class="nav-link ">
 
-                                        <p class="stu-list text-white pl-2">កាលវិភាគគ្រូបង្រៀន</p>
+                                        <p class="stu-list text-white pl-2">បញ្ចូលកាលវិភាគ</p>
                                     </a>
                                 </li>
                             </ul>
@@ -410,7 +410,7 @@ include 'connection.php';
                             </ul>
                         </li>
                         <!-- check _SESSION if user -->
-<?php endif; ?>
+                        <?php endif; ?>
                     </ul>
 
 
