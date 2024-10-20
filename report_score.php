@@ -6,13 +6,13 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx; // Xlsx for better compatibility
 
 include_once 'connection.php'; // Database connection
 
-
 // Function to fetch student data
-function fetchStudentData($conn) {
-    if(isset($_POST['classname'])){
+function fetchStudentData($conn)
+{
+    if (isset($_POST['classname'])) {
         $classname = $_POST['classname'];
         // echo $classname;
-        }
+    }
     $query = "SELECT stu.En_name, ms.Homework, ms.Participation, ms.Attendance, ms.Monthly, ms.Average FROM tb_month_score ms
 		INNER JOIN tb_student stu ON ms.Stu_id = stu.ID
 		INNER JOIN tb_class c ON ms.Class_id = c.ClassID
@@ -66,8 +66,8 @@ if (isset($_POST['export_excel'])) {
     $pdf->SetCreator(PDF_CREATOR);
 
     $pdf->AddPage();
-//     $fontname = TCPDF_FONTS::addTTFfont('Suwannaphum.ttf', 'TrueTypeUnicode', '', 96);
-// $pdf->SetFont($fontname, '', 10);
+    //     $fontname = TCPDF_FONTS::addTTFfont('Suwannaphum.ttf', 'TrueTypeUnicode', '', 96);
+    // $pdf->SetFont($fontname, '', 10);
     $pdf->SetFont('FreeSerif', '', 10);
 
     // Add content to PDF
@@ -98,4 +98,3 @@ if (isset($_POST['export_excel'])) {
     $pdf->Output('Student_Score_List.pdf', 'I'); // Output PDF inline
     exit; // Exit after outputting the file
 }
-?>

@@ -4,13 +4,13 @@ include_once 'connection.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$sql = "SELECT c.Class_name, t.Kh_name, co.Course_name, c.Shift FROM tb_class c
-		INNER JOIN tb_teacher t ON c.Teacher_id = t.id
-		INNER JOIN tb_course co ON c.course_id = co.id
-    WHERE c.`status` = 'active'";
+$sql = "SELECT sch.sch_id,c.Class_name, t.Kh_name, c.Shift, sch.Start_class, sch.End_class, sch.Time_in, sch.Time_out,t.`status`,c.`status`
+        FROM tb_sch_student sch
+		INNER JOIN tb_class c ON sch.Class_id = c.ClassID
+		INNER JOIN tb_teacher t ON sch.teacher_id = t.id ";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
-$score = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$sch = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <?php include_once "header.php"; ?>
@@ -45,37 +45,41 @@ $score = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <tr>
                                 <th>ល.រ</th>
                                 <th>ថ្នាក់</th>
-                                <th>គ្រូបង្រៀន</th>
+                                <!-- <th>គ្រូបង្រៀន</th> -->
                                 <th>វគ្គសិក្សា</th>
-                                <th>វេនសិក្សា</th>
+                                <th>ថ្ងៃ ខែ ឆ្នាំចាប់់ផ្តើម</th>
+                                <th>ថ្ងៃ ខែ ឆ្នាំបញ្ចប់</th>
+                                <th>ម៉ោងចូល</th>
+                                <th>ម៉ោងចេញ</th>
                                 <th>ទាញយក</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 1;
-                            foreach ($score as $row): ?>
-                                <tr>
-                                    <td><?php echo $i++ ?></td>
-                                    <td><?php echo $row['Class_name']; ?></td>
-                                    <td><?php echo $row['Kh_name']; ?></td>
-                                    <td><?php echo $row['Course_name']; ?></td>
-                                    <td><?php echo $row['Shift']; ?></td>
-                                    <td>
-                                        <form action="report_score.php" method="POST">
-                                            <button type="submit" name="export_pdf" title="PDF"
-                                                style="border:none; background: transparent; padding:0px;"><i
-                                                    class="fa fa-file-pdf text-danger ml-1" style=" font-size: 18px;"></i>
-                                                <input type="hidden" name="classname" value="<?= $row['Class_name']; ?>">
-                                            </button>
-                                            <button type="submit" name="export_excel" title="Excel"
-                                                style="border:none; background: transparent; padding:0px;"><i
-                                                    class="fa fa-file-excel text-success ml-2"
-                                                    style=" font-size: 18px;"></i></button>
-
-
-                                        </form>
-                                    </td>
-                                </tr>
+                            foreach ($sch as $row): ?>
+                            <tr>
+                                <td><?php echo $i++ ?></td>
+                                <td><?php echo $row['Class_name']; ?></td>
+                                <!-- <td><?php echo $row['Kh_name']; ?></td> -->
+                                <td><?php echo $row['Shift']; ?></td>
+                                <td><?php echo $row['Start_class']; ?></td>
+                                <td><?php echo $row['End_class']; ?></td>
+                                <td><?php echo $row['Time_in']; ?></td>
+                                <td><?php echo $row['Time_out']; ?></td>
+                                <td>
+                                    <form action="report_sch_student.php" method="POST">
+                                        <button type="submit" name="export_pdf" title="PDF"
+                                            style="border:none; background: transparent; padding:0px;"><i
+                                                class="fa fa-file-pdf text-danger ml-1" style=" font-size: 18px;"></i>
+                                            <input type="hidden" name="classname" value="<?= $row['Class_name']; ?>">
+                                        </button>
+                                        <button type="submit" name="export_excel" title="Excel"
+                                            style="border:none; background: transparent; padding:0px;"><i
+                                                class="fa fa-file-excel text-success ml-2"
+                                                style=" font-size: 18px;"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

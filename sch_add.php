@@ -81,9 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':field3' => $field3,
                         ':field4' => $field4,
                         ':field5' => $field5
-
-
-
                     ]);
                 }
             }
@@ -106,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <section class="content-wrapper">
     <form action="" method="POST">
         <div class="col-sm-6 pt-3 mb-3 ml-3">
-            <h3>|Insert Schedule</h3>
+            <h3>|បញ្ចូលកាលវិភាគ</h3>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -122,9 +119,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <select name="classid" id="Class_id" class="form-control" style="font-size:14px;">
                                         <option value="">--ជ្រើសរើសថ្នាក់--</option>
                                         <?php foreach ($classes as $row) : ?>
-                                            <option value="<?= htmlspecialchars($row['ClassID'], ENT_QUOTES, 'UTF-8'); ?>">
-                                                <?= htmlspecialchars($row['Class_name'], ENT_QUOTES, 'UTF-8'); ?>
-                                            </option>
+                                        <option value="<?= htmlspecialchars($row['ClassID'], ENT_QUOTES, 'UTF-8'); ?>">
+                                            <?= htmlspecialchars($row['Class_name'], ENT_QUOTES, 'UTF-8'); ?>
+                                        </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -151,16 +148,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
-        <div class="container card mt-1 pt-2">
-            <div id="itemContainer">
+        <div class="card mt-1 pt-2">
+            <div id="itemContainer" class="p-2">
                 <div class="row input-group">
                     <div class="form-group mb-2 col-md-4">
-                        <select name="item[]" id="teacher" class="form-control">
-                            <option selected disabled>--Select Teacher--</option>
-                            <?php foreach ($teacher as $key => $value) { ?>
-                                <option value="<?= $value['id']; ?>"><?= $value['En_name']; ?></option>
-                            <?php } ?>
-                        </select>
                     </div>
                     <div class="form-group mb-2 col-md-4">
                         <input type="time" class="form-control" name="item[]">
@@ -191,13 +182,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     </div>
                     <div class="form-group-append col-md-2">
-                        <button class="btn btn-danger removeItem" type="button">Remove</button>
+                        <button class="btn btn-danger removeItem" type="button">យកចេញ</button>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2"><button type="button" class="btn btn-primary" id="addItem">Add More</button></div>
-                <div class="col-md-2"><input type="submit" name="submit" class="btn btn-success" value="Submit"></div>
+                <div class="col-md-8 m-0"></div>
+                <div class="col-md-2 m-0">
+                    <button type="button" class="btn btn-primary" id="addItem">ថែមថ្មី</button>
+                </div>
+                <div class="col-md-2 m-0">
+                    <input type="submit" name="submit" class="btn1 bg-sis text-white" value="រក្សាទុក">
+                </div>
             </div>
             <!-- <input type="text" name="test" class="form-control"> -->
 
@@ -207,10 +203,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Add new input field
-            $('#addItem').click(function() {
-                $('#itemContainer').append(`<div id="itemContainer">
+    $(document).ready(function() {
+        // Add new input field
+        $('#addItem').click(function() {
+            $('#itemContainer').append(`<div id="itemContainer">
                 <div class="row input-group">
                     <div class="form-group mb-2 col-md-4">
                         <select name="item[]" id="teacher" class="form-control">
@@ -253,23 +249,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </div>`);
-            });
+        });
 
-            // Remove an input field
-            $(document).on('click', '.removeItem', function() {
-                $(this).closest('.input-group').remove();
-            });
+        // Remove an input field
+        $(document).on('click', '.removeItem', function() {
+            $(this).closest('.input-group').remove();
+        });
 
-            // Handle form submission
-            $('#itemForm').submit(function(event) {
-                event.preventDefault(); // Prevent default form submission
-                $.ajax({
-                    url: 'process.php',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#response').html(response);
-                        $('#itemContainer').html(`
+        // Handle form submission
+        $('#itemForm').submit(function(event) {
+            event.preventDefault(); // Prevent default form submission
+            $.ajax({
+                url: 'process.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#response').html(response);
+                    $('#itemContainer').html(`
                             <form method="post" action="">
             <div class="row input-group">
                 <div class="form-group mb-2 col-md-2">
@@ -314,10 +310,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
                 </form>
                         `); // Reset the form
-                    }
-                });
+                }
             });
         });
+    });
     </script>
 
     <!-- Toastr JS -->
@@ -325,12 +321,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Toastr Config -->
     <script>
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "timeOut": "5000",
-        };
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "timeOut": "5000",
+    };
     </script>
 </section>
 
