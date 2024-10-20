@@ -6,12 +6,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
 if (isset($_POST['btnsave'])) {
-    $sql = "INSERT INTO tb_course(Course_name,Color,Sub_id,Date) VALUES(:cu_name,:Color,:subid,:date)";
+    $sql = "INSERT INTO tb_classroom(Name,status) VALUES(:Name,:status)";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(":cu_name", $_POST['cu_name'], PDO::PARAM_STR);
-    $stmt->bindParam(":Color", $_POST['color'], PDO::PARAM_STR);
-    $stmt->bindParam(":subid", $_POST['subject'], PDO::PARAM_INT);
-    $stmt->bindParam(":date", $_POST['date'], PDO::PARAM_STR);
+    $stmt->bindParam(":Name", $_POST['Name'], PDO::PARAM_STR);
+    $stmt->bindParam(":status", $_POST['status'], PDO::PARAM_STR);
     $stmt->execute();
 
     if ($stmt->rowCount()) {
@@ -20,7 +18,7 @@ if (isset($_POST['btnsave'])) {
 }
 
 //pages
-$sql  = "SELECT COUNT(*) AS CountRecords FROM tb_course LIMIT 8";
+$sql  = "SELECT COUNT(*) AS CountRecords FROM tb_classroom LIMIT 8";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $temp = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,21 +29,10 @@ if ($temp) {
 }
 
 
-
-// $sql = "SELECT * FROM tb_subject";
-// $stmt = $conn->prepare($sql);
-// $stmt->execute();
-// $Student = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$sql = "SELECT * from tb_course co,  tb_subject su WHERE co.Sub_id = su.SubID";
+$sql = "SELECT * from tb_classroom";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
-$Course = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$sql = "SELECT * from tb_subject";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$Subject = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$classroom = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php include_once 'header.php'; ?>
 
@@ -57,7 +44,7 @@ $Subject = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h3 class="m-0">|កម្រិតសិក្សា</h3>
+                    <h3 class="m-0">|បន្ទប់សិក្សា</h3>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
@@ -69,9 +56,8 @@ $Subject = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="modal fade" id="modal-lg">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-
                     <div class="modal-header">
-                        <h4>|បង្កើតវគ្គសិក្សាថ្មី</h4>
+                        <h4>|បញ្ចូលបន្ទប់ថ្មី</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -82,42 +68,20 @@ $Subject = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <form name="subjectForm" method="post" action="">
                         <div class="card-body">
                             <div class="form-group">
-                                <input type="hidden" id="subID" name="subid" value="<?= $subject_id; ?>">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <label for="inputName">វគ្គសិក្សា</label>
-                                        <input type="text" id="coursename" name="cu_name" class="form-control" value="">
+                                    <div class="col-md-6">
+                                        <label for="inputName">បន្ទប់សិក្សា</label>
+                                        <input type="text" id="" name="Name" class="form-control" value="">
                                     </div>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="inputStatus">មុខវិជ្ជាសិក្សា</label>
-                                            <select id="" name="subject" class="form-control custom-select">
-                                                <option selected disabled>--ជ្រើសរើស--</option>
-                                                <?php foreach ($Subject as  $row): ?>
-                                                <option value="<?= $row['SubID']; ?>">
-                                                    <?= $row['Subject_name']; ?>
-                                                </option>
-                                                <?php endforeach; ?>
+                                            <label for="">ស្ថានភាព</label>
+                                            <select name="status" class="form-control">
+                                                <option value="active">Active</option>
+                                                <option value="disable">Disable</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <!-- <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="inputStatus">ពណ៌</label>
-                                            <select id="" name="color" class="form-control custom-select">
-                                                <option selected disabled>--ជ្រើសរើស--</option>
-                                                <option value="bg-primary">Primary</option>
-                                                <option value="bg-secondary">Secondary</option>
-                                                <option value="bg-success">Success</option>
-                                                <option value="bg-danger">Danger</option>
-                                                <option value="bg-warning">Warning</option>
-                                                <option value="bg-info">Info</option>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                                    <div class="col-md-3">
-                                        <label for="inputName">កាលបរិច្ឆេទ</label>
-                                        <input type="date" id="date" name="date" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -158,25 +122,29 @@ $Subject = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <table class="table table-hover text-nowrap" id="userTbl">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">ល.រ</th>
-                                        <th>វគ្គសិក្សា</th>
-                                        <th>មុខវិជ្ចា</th>
-                                        <th>កាលបរិច្ឆេទ</th>
+                                        <th>ល.រ</th>
+                                        <th>បន្ទប់សិក្សា</th>
+                                        <th>ស្ថានភាព</th>
                                         <th>សកម្មភាព</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($Course as $key => $value): ?>
+                                    <?php foreach ($classroom as $key => $value): ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $value['Course_name']; ?></td>
-                                        <td><?php echo $value['Subject_name']; ?></td>
-                                        <td><?php echo $value['Date']; ?></td>
+                                        <td><?php echo $value['Name']; ?></td>
                                         <td>
-                                            <a href="update_course.php?co_id=<?php echo $value['id'] ?>">
+                                            <?php if ($value['status'] == 'active') { ?>
+                                            <span class="badge badge-success">Active</span>
+                                            <?php } else { ?>
+                                            <span class="badge badge-danger">Disable</span>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <a href="update_room.php?room_id=<?php echo $value['id'] ?>">
                                                 <i class="fa fa-edit text-success"></i>
                                             </a>
-                                            <a class="m-2" href="all_condition.php?co_id=<?php echo $value['id'] ?>"
+                                            <a class="m-2" href="all_condition.php?room_id=<?php echo $value['id'] ?>"
                                                 onclick="return confirm('Do you want to delete this record?')">
                                                 <i class="fa fa-trash text-danger"></i>
                                             </a>

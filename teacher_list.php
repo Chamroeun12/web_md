@@ -7,8 +7,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Handle insert (Add new teacher)
 if (isset($_POST['btnsave'])) {
-    $sql = "INSERT INTO tb_teacher(En_name, Kh_name, Staff_code, Gender, DOB, Position, Address, Phone, Nation, Ethnicity, Status)
-    VALUES(:En_name, :Kh_name, :Staff_code, :Gender, :DOB, :Position, :Address, :Phone, :Nation, :Ethnicity, :Status)";
+    $file_name = $_FILES['image']['name'];
+    $tempname = $_FILES['image']['tmp_name'];
+    $folder = 'images/' . $file_name;
+    $sql = "INSERT INTO tb_teacher(En_name, Kh_name, Staff_code, Gender, DOB, Position, Address, Phone, Nation, Ethnicity, Status, Profile_img)
+    VALUES(:En_name, :Kh_name, :Staff_code, :Gender, :DOB, :Position, :Address, :Phone, :Nation, :Ethnicity, :Status, :Profile_img)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(":Kh_name", $_POST['Kh_name'], PDO::PARAM_STR);
     $stmt->bindParam(":En_name", $_POST['En_name'], PDO::PARAM_STR);
@@ -21,10 +24,17 @@ if (isset($_POST['btnsave'])) {
     $stmt->bindParam(":Nation", $_POST['nation'], PDO::PARAM_STR);
     $stmt->bindParam(":Ethnicity", $_POST['ethnicity'], PDO::PARAM_STR);
     $stmt->bindParam(":Status", $_POST['status'], PDO::PARAM_STR);
-    $stmt->execute();
-    if ($stmt->rowCount()) {
-        header('Location: teacher_list.php');
+    $stmt->bindParam(":Profile_img", $file_name, PDO::PARAM_STR);
+
+    if ($stmt->execute() && move_uploaded_file($tempname, $folder)) {
+        $_SESSION['message'] = 'Student added successfully!';
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = 'Failed to add student. Please try again.';
+        $_SESSION['message_type'] = 'error';
     }
+        header('Location: teacher_list.php');
+    
 }
 
 // Initialize variables
@@ -79,7 +89,8 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="card-header">
                     <h3 class="card-title">|បញ្ចូលគ្រូបង្រៀនថ្មី</h3>
                 </div>
-                <form name="teacherform" method="post" action="">
+                <form name="teacherform" method="post" action="" enctype="multipart/form-data">
+
                     <div class="card-body">
                         <div class="form-group">
                             <div class="row">
@@ -115,17 +126,15 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mt-3">
+                                <div class="col-md-4 mt-3">
                                     <label for="inputStatus">ជនជាតិ</label>
                                     <input type="text" name="nation" class="form-control">
                                 </div>
-                                <div class="col-md-6 mt-3">
+                                <div class="col-md-4 mt-3">
                                     <label for="inputStatus">សញ្ជាតិ</label>
                                     <input type="text" name="ethnicity" class="form-control">
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3 mt-3">
+                                <div class="col-md-4 mt-3">
                                     <label for="">ស្ថានភាព</label>
                                     <select name="status" class="form-control">
                                         <option value="active">Active</option>
@@ -133,13 +142,28 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputPhone">លេខទូរស័ព្ទ</label>
+                                <input type="text" id="inputPhone" name="phone" class="form-control" value="">
+                            </div>
                             <div class="form-group mt-3">
                                 <label for="inputDescription">អាសយដ្ឋាន</label>
                                 <textarea id="inputDescription" name="address" class="form-control" rows="3"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="inputPhone">លេខទូរស័ព្ទ</label>
-                                <input type="text" id="inputPhone" name="phone" class="form-control" value="">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="inputEmail">រូបភាពសិស្ស</label>
+                                    <input type="file" class="form-control" id="image" name="image" accept="image/**"
+                                        onchange="preview (event)">
+                                    <small>
+                                        <i class="icon-help-with-circle"></i>
+                                        Extensions: .png, .jpg, .jpeg, .gif, .svg, .webp
+                                    </small>
+                                    <div style="margin-top: 9px">
+                                        <img src="" alt="" id="img" width="150">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,64 +199,77 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </select>
                     </form>
                 </div>
-            </div>
-            <div class="card-body table-responsive p-0 text-sm">
-                <table class="table table-hover text-nowrap" id="userTbl">
-                    <thead>
-                        <tr>
-                            <th>ល.រ</th>
-                            <th>ឈ្មោះភាសាខ្មែរ</th>
-                            <th>ឈ្មោះភាសាអង់គ្លេស</th>
-                            <th>អត្តលេខ</th>
-                            <th>ភេទ</th>
-                            <th>ថ្ងៃខែឆ្នាំកំណើត</th>
-                            <th>តួនាទី</th>
-                            <th>អាសយដ្ឋាន</th>
-                            <th>លេខទូរស័ព្ទ</th>
-                            <th>ស្ថានភាព</th>
-                            <th>សកម្មភាព</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (empty($data)) { ?>
-                        <tr>
-                            <td colspan="11" class="text-center">No records found</td>
-                        </tr>
-                        <?php } else { ?>
-                        <?php foreach ($data as $key => $value) { ?>
-                        <tr>
-                            <td><?php echo ($key + 1); ?></td>
-                            <td><?php echo $value['Kh_name']; ?></td>
-                            <td><?php echo $value['En_name']; ?></td>
-                            <td><?php echo $value['Staff_code']; ?></td>
-                            <td><?php echo $value['Gender']; ?></td>
-                            <td><?php echo date('d-M-Y', strtotime($value['DOB'])); ?></td>
-                            <td><?php echo $value['Position']; ?></td>
-                            <td><?php echo $value['Address']; ?></td>
-                            <td><?php echo $value['Phone']; ?></td>
-                            <td>
-                                <?php if ($value['status'] == 'active') { ?>
-                                <span class="badge badge-success">Active</span>
-                                <?php } else { ?>
-                                <span class="badge badge-danger">Disable</span>
-                                <?php } ?>
-                            </td>
-                            <td>
-                                <a href="update_teacher.php?t_id=<?php echo $value['id']; ?>">
-                                    <i class="fa fa-edit text-success"></i>
-                                </a>
-                                <a class="m-2" href="all_condition.php?t_id=<?php echo $value['id']; ?>"
-                                    onclick="return confirm('Do you want to delete this record?')">
-                                    <i class="fa fa-trash text-danger"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                        <?php } ?>
-                    </tbody>
-                </table>
+
+                <div class="card-body table-responsive p-0 text-sm">
+                    <table class="table table-hover text-nowrap" id="userTbl">
+                        <thead>
+                            <tr>
+                                <th>ល.រ</th>
+                                <th>រូបភាព</th>
+                                <th>ឈ្មោះភាសាខ្មែរ</th>
+                                <th>ឈ្មោះភាសាអង់គ្លេស</th>
+                                <th>អត្តលេខ</th>
+                                <th>ភេទ</th>
+                                <th>ថ្ងៃខែឆ្នាំកំណើត</th>
+                                <th>តួនាទី</th>
+                                <th>អាសយដ្ឋាន</th>
+                                <th>លេខទូរស័ព្ទ</th>
+                                <th>ស្ថានភាព</th>
+                                <th>សកម្មភាព</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($data)) { ?>
+                            <tr>
+                                <td colspan="11" class="text-center">No records found</td>
+                            </tr>
+                            <?php } else { ?>
+                            <?php foreach ($data as $key => $value) { ?>
+                            <tr>
+
+                                <td><?php echo ($key + 1); ?></td>
+                                <td>
+                                    <div class="user-panel p-0">
+                                        <div class="image p-0">
+                                            <img onerror="this.style.display = 'none'" class="img-circle p-0"
+                                                src="images/<?= $value['Profile_img']; ?>"
+                                                style="width: 35px; height: 35px; object-fit:cover;" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><?php echo $value['Kh_name']; ?></td>
+                                <td><?php echo $value['En_name']; ?></td>
+                                <td><?php echo $value['Staff_code']; ?></td>
+                                <td><?php echo $value['Gender']; ?></td>
+                                <td><?php echo date('d-M-Y', strtotime($value['DOB'])); ?></td>
+                                <td><?php echo $value['Position']; ?></td>
+                                <td><?php echo $value['Address']; ?></td>
+                                <td><?php echo $value['Phone']; ?></td>
+                                <td>
+                                    <?php if ($value['status'] == 'active') { ?>
+                                    <span class="badge badge-success">Active</span>
+                                    <?php } else { ?>
+                                    <span class="badge badge-danger">Disable</span>
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <a href="update_teacher.php?t_id=<?php echo $value['id']; ?>">
+                                        <i class="fa fa-edit text-success"></i>
+                                    </a>
+                                    <a class="m-2" href="all_condition.php?t_id=<?php echo $value['id']; ?>"
+                                        onclick="return confirm('Do you want to delete this record?')">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
 <?php include_once "footer.php"; ?>
