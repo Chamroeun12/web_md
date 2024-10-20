@@ -53,8 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->beginTransaction();
 
             // Insert each schedule item into the database
-            for ($i = 0; $i < count($schedule_items); $i += 8) {
-                $teacher_id = $schedule_items[$i] ?? null;
+            for ($i = 0; $i < count($schedule_items); $i += 7) {
                 $start_time = $schedule_items[$i + 1] ?? null;
                 $end_time = $schedule_items[$i + 2] ?? null;
                 $field1 = $schedule_items[$i + 3] ?? null; // Extra fields
@@ -63,15 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $field4 = $schedule_items[$i + 6] ?? null;
                 $field5 = $schedule_items[$i + 7] ?? null;
 
-                if ($teacher_id && $start_time && $end_time) {
+                if ($start_time && $end_time) {
                     // Prepare SQL to insert schedule
-                    $sql = "INSERT INTO tb_sch_student (Class_id, teacher_id, Start_class, End_class, Time_in, Time_out, Monday, Tuesday, Wednesday, Thursday, Friday)
-                            VALUES (:classid, :teacher_id, :start_date, :end_date, :start_time, :end_time, :field1, :field2, :field3, :field4, :field5)";
+                    $sql = "INSERT INTO tb_sch_student (Class_id, Start_class, End_class, Time_in, Time_out, Monday, Tuesday, Wednesday, Thursday, Friday)
+                            VALUES (:classid, :start_date, :end_date, :start_time, :end_time, :field1, :field2, :field3, :field4, :field5)";
 
                     $stmt = $conn->prepare($sql);
                     $stmt->execute([
                         ':classid' => $class_id,
-                        ':teacher_id' => $teacher_id,
                         ':start_date' => $start_date,
                         ':end_date' => $end_date,
                         ':start_time' => $start_time,
