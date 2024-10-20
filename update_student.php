@@ -99,8 +99,7 @@ if (isset($_GET['stu_id'])) {
         </div>
     </div>
     <div class="m-4 card">
-        <form name="studentform" method="post" action="" enctype="multipart/form-data"
-            style="font-family:Khmer OS Siemreap;">
+        <form name="studentform" method="post" action="" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="form-group">
                     <div class="row">

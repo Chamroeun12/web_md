@@ -3,7 +3,33 @@ include "connection.php";
 
 if (isset($_POST['btnsave'])) {
     if (isset($_GET['t_id'])) {
-        $sql = "UPDATE tb_teacher SET En_name=:En_name, Kh_name=:Kh_name, Staff_code=:Staff_code, Gender=:Gender, DOB=:DOB, Position=:Position, Address=:Address, Phone=:Phone, Nation=:Nation, Ethnicity=:Ethnicity, Status=:Status WHERE id=:id";
+        $file_name = $_FILES['image']['name'];
+        $tempname = $_FILES['image']['tmp_name'];
+        $folder = 'images/' . $file_name;
+        $upload_success = false;
+  
+        // Validate and upload image
+        if ($file_name) {
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            if (in_array($_FILES['image']['type'], $allowed_types) && $_FILES['image']['size'] <= 500000) {
+                $upload_success = move_uploaded_file($tempname, $folder);
+            } else {
+                $_SESSION['message'] = "Invalid file type or size too large.";
+                $_SESSION['message_type'] = "error";
+                header('Location: teacher_list.php?t_id=' . $_GET['t_id']);
+                exit;
+            }
+        } else {
+            // No new image uploaded
+            $sql_current = "SELECT Profile_img FROM tb_teacher WHERE id=:id";
+            $stmt_current = $conn->prepare($sql_current);
+            $stmt_current->bindParam(":id", $_GET['t_id'], PDO::PARAM_INT);
+            $stmt_current->execute();
+            $current_data = $stmt_current->fetch(PDO::FETCH_ASSOC);
+            $file_name = $current_data['Profile_img'];
+        }
+
+        $sql = "UPDATE tb_teacher SET En_name=:En_name, Kh_name=:Kh_name, Staff_code=:Staff_code, Gender=:Gender, DOB=:DOB, Position=:Position, Address=:Address, Phone=:Phone, Nation=:Nation, Ethnicity=:Ethnicity, Status=:Status, Profile_img=:Profile_img WHERE id=:id";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(":En_name", $_POST['En_name'], PDO::PARAM_STR);
         $stmt->bindParam(":Kh_name", $_POST['Kh_name'], PDO::PARAM_STR);
@@ -17,12 +43,14 @@ if (isset($_POST['btnsave'])) {
         $stmt->bindParam(":Ethnicity", $_POST['ethnicity'], PDO::PARAM_STR);
         $stmt->bindParam(":Status", $_POST['status'], PDO::PARAM_STR);
         $stmt->bindParam(":id", $_GET['t_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":Profile_img", $file_name, PDO::PARAM_STR);
         $stmt->execute();
-    }
+    
     if ($stmt->rowCount()) {
         header('Location: teacher_list.php');
         exit;
     }
+}
 }
 
 if (isset($_GET['t_id'])) {
@@ -48,7 +76,7 @@ if (isset($_GET['t_id'])) {
         </div>
     </div>
     <div class="m-4 card">
-        <form name="teacherform" method="post" action="">
+        <form name="studentform" method="post" action="" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="form-group">
                     <div class="row">
@@ -130,16 +158,26 @@ if (isset($_GET['t_id'])) {
                         </div>
                     </div>
                     <div class="form-group mt-3">
+                        <label for="inputPhone">លេខទូរស័ព្ទ</label>
+                        <input type="text" id="inputPhone" name="phone" class="form-control"
+                            value="<?php echo !isset($data) ? '' : $data['Phone']; ?>">
+                    </div>
+                    <div class="form-group mt-3">
                         <label for="inputDescription">អាសយដ្ឋាន</label>
                         <textarea id="inputDescription" name="address" class="form-control"
                             rows="3"><?php echo !isset($data) ? '' : $data['Address']; ?></textarea>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="inputPhone">លេខទូរស័ព្ទ</label>
-                        <input type="text" id="inputPhone" name="phone" class="form-control"
-                            value="<?php echo !isset($data) ? '' : $data['Phone']; ?>">
+                        <label for="inputEmail">រូបភាព</label>
+                        <input type="file" name="image" class="form-control" accept="image/*" onchange="preview(event)">
+                        <div style="margin-top: 9px">
+                            <img src="images/<?= htmlspecialchars($data['Profile_img']); ?>" alt="" id="img"
+                                width="100">
+                        </div>
                     </div>
+
                 </div>
                 <!-- <?php if ($_SESSION['role'] == "admin") { ?>
                             <?php if (isset($_GET['student_id'])) { ?>
