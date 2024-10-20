@@ -53,40 +53,40 @@ include 'connection.php';
 
 
     <style>
-    aside a p {
-        color: #fff;
-    }
+        aside a p {
+            color: #fff;
+        }
 
-    aside a i {
-        color: #fff;
-    }
+        aside a i {
+            color: #fff;
+        }
 
-    .stu-list {
-        color: #152550;
-    }
+        .stu-list {
+            color: #152550;
+        }
 
-    .btnhover1:hover {
-        background: #5b6684;
-        color: #fff;
-    }
+        .btnhover1:hover {
+            background: #5b6684;
+            color: #fff;
+        }
 
-    .bimg {
-        border-top: 1px solid #5b6684;
-        border-bottom: 1px solid #5b6684;
-    }
+        .bimg {
+            border-top: 1px solid #5b6684;
+            border-bottom: 1px solid #5b6684;
+        }
 
-    .bg-sis {
-        background-color: #152550;
-    }
+        .bg-sis {
+            background-color: #152550;
+        }
 
-    .btn1 {
-        padding: 6px 10px;
-        border-radius: 5px;
-    }
+        .btn1 {
+            padding: 6px 10px;
+            border-radius: 5px;
+        }
 
-    .bg-sis {
-        background-color: #152550;
-    }
+        .bg-sis {
+            background-color: #152550;
+        }
     </style>
 
 
@@ -165,103 +165,103 @@ include 'connection.php';
                with font-awesome or any other icon font library -->
 
                         <?php if ($_SESSION['role'] == 'admin'): ?>
-                        <li class="nav-item">
-                            <a href="index.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    ទំព័រដើម
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="index.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        ទំព័រដើម
+                                    </p>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a href="student_list.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    ព័ត៌មានផ្ទាល់ខ្លួនសិស្ស
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="teacher_list.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    ព័ត៌មានគ្រូបង្រៀន
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="subject.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-graduation-cap"></i>
-                                <p>
-                                    មុខវិជ្ជាសិក្សា
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="tbl_course.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    វគ្គសិក្សា
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="student_list.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        ព័ត៌មានផ្ទាល់ខ្លួនសិស្ស
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="teacher_list.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-user-tie"></i>
+                                    <p>
+                                        ព័ត៌មានគ្រូបង្រៀន
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="subject.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-graduation-cap"></i>
+                                    <p>
+                                        មុខវិជ្ជាសិក្សា
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="tbl_course.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        វគ្គសិក្សា
+                                    </p>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-warehouse"></i>
-                                <p>
-                                    ថ្នាក់រៀន
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview "
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="classroom.php" class="nav-link">
-                                        <p class="stu-list text-white pl-2">
-                                            បញ្ជីថ្នាក់រៀន</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="class.php" class="nav-link ">
-                                        <p class="stu-list text-white pl-2">បញ្ចូលសិស្សទៅក្នុងថ្នាក់</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview "
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="Student_in_class.php" class="nav-link">
-                                        <p class="stu-list text-white pl-2">សិស្សក្នុងថ្នាក់រៀន</p>
-                                    </a>
-                                </li>
-                            </ul>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-warehouse"></i>
+                                    <p>
+                                        ថ្នាក់រៀន
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview "
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="classroom.php" class="nav-link">
+                                            <p class="stu-list text-white pl-2">
+                                                បញ្ជីថ្នាក់រៀន</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="class.php" class="nav-link ">
+                                            <p class="stu-list text-white pl-2">បញ្ចូលសិស្សទៅក្នុងថ្នាក់</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview "
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="Student_in_class.php" class="nav-link">
+                                            <p class="stu-list text-white pl-2">សិស្សក្នុងថ្នាក់រៀន</p>
+                                        </a>
+                                    </li>
+                                </ul>
 
-                        </li>
+                            </li>
                         <?php endif; ?>
                         <!-- close  -->
 
                         <?php if ($_SESSION['role'] == 'admin'): ?>
-                        <li class="nav-item">
-                            <a href="score_list.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    លទ្ធផលពិន្ទុ
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="attendace_list.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    បញ្ជីវត្តមានសិក្សា
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="score_list.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        លទ្ធផលពិន្ទុ
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="attendace_list.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        បញ្ជីវត្តមានសិក្សា
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
 
                         <!-- User page -->
@@ -269,147 +269,147 @@ include 'connection.php';
 
                         <?php if ($_SESSION['role'] == 'user'): ?>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-chart-bar"></i>
-                                <p>
-                                    ពិន្ទុ
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview "
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="Classlist.php" class="nav-link">
-                                        <p class="stu-list text-white pl-2">
-                                            បញ្ជូលពិន្ទុ</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="score_list.php" class="nav-link ">
-                                        <p class="stu-list text-white pl-2">លទ្ធផលពិន្ទុ</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-chart-bar"></i>
+                                    <p>
+                                        ពិន្ទុ
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview "
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="Classlist.php" class="nav-link">
+                                            <p class="stu-list text-white pl-2">
+                                                បញ្ជូលពិន្ទុ</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="score_list.php" class="nav-link ">
+                                            <p class="stu-list text-white pl-2">លទ្ធផលពិន្ទុ</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         <?php endif; ?>
 
 
 
                         <?php if ($_SESSION['role'] == 'user'): ?>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-tasks"></i>
-                                <p>
-                                    វត្តមាន
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="attendance.php" class="nav-link">
-                                        <p class="stu-list text-white pl-2">
-                                            បញ្ចូលវត្តមាន</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="attendace_list.php" class="nav-link">
-                                        <p class="stu-list text-white pl-2">បញ្ជីវត្តមាន</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="logout.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>
-                                    ចាកចេញ
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-tasks"></i>
+                                    <p>
+                                        វត្តមាន
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="attendance.php" class="nav-link">
+                                            <p class="stu-list text-white pl-2">
+                                                បញ្ចូលវត្តមាន</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="attendace_list.php" class="nav-link">
+                                            <p class="stu-list text-white pl-2">បញ្ជីវត្តមាន</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="logout.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>
+                                        ចាកចេញ
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
 
 
                         <?php if ($_SESSION['role'] == 'admin'): ?>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-calendar"></i>
-                                <p>
-                                    កាលវិភាគសិក្សា
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview "
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="sch_add.php" class="nav-link ">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-calendar"></i>
+                                    <p>
+                                        កាលវិភាគសិក្សា
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview "
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="sch_add.php" class="nav-link ">
 
-                                        <p class="stu-list text-white pl-2">បញ្ចូលកាលវិភាគ</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="schedule_stu.php" class="nav-link ">
+                                            <p class="stu-list text-white pl-2">បញ្ចូលកាលវិភាគ</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="sch_list.php" class="nav-link ">
 
-                                        <p class="stu-list text-white pl-2">កាលវិភាគសិស្ស</p>
-                                    </a>
-                                </li>
-                            </ul>
+                                            <p class="stu-list text-white pl-2">បង្ហាញកាលវិភាគ</p>
+                                        </a>
+                                    </li>
+                                </ul>
 
-                        </li>
-                        <li class="nav-item">
-                            <a href="report.php" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    របាយការណ៍
-                                </p>
-                            </a>
-                        </li>
+                            </li>
+                            <li class="nav-item">
+                                <a href="report.php" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>
+                                        របាយការណ៍
+                                    </p>
+                                </a>
+                            </li>
 
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link btnhover1">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    ផ្សេងៗ
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="user_info.php" class="nav-link">
-                                        <p class="stu-list text-white pl-2">ព័ត៌មានអ្នកប្រើប្រាស់</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="backup.php" class="nav-link ">
-                                        <p class="stu-list text-white pl-2">Backup</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview mb-5"
-                                style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
-                                <li class="nav-item">
-                                    <a href="logout.php" class="nav-link ">
-                                        <p class="stu-list text-white pl-2">ចាកចេញ</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- check _SESSION if user -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link btnhover1">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        ផ្សេងៗ
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="user_info.php" class="nav-link">
+                                            <p class="stu-list text-white pl-2">ព័ត៌មានអ្នកប្រើប្រាស់</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="backup.php" class="nav-link ">
+                                            <p class="stu-list text-white pl-2">Backup</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview mb-5"
+                                    style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
+                                    <li class="nav-item">
+                                        <a href="logout.php" class="nav-link ">
+                                            <p class="stu-list text-white pl-2">ចាកចេញ</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- check _SESSION if user -->
                         <?php endif; ?>
                     </ul>
 

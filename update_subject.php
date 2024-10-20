@@ -35,7 +35,7 @@ if (isset($_GET['sub_id'])) {
     <div class="container-fluid">
         <div class="row mb-2 card-header">
             <div class="col-sm-6">
-                <h2 class="m-0">|Edit Subject</h2>
+                <h2 class="m-0">|ផ្ទាំងកែប្រែមុខវិទ្យា</h2>
             </div>
             <!-- /.col -->
 
@@ -47,15 +47,15 @@ if (isset($_GET['sub_id'])) {
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="inputName">Subject Name</label>
+                            <label for="inputName">កែប្រែឈ្មោះមុខវិទ្យា</label>
                             <input type="text" id="subName" name="sub_name" class="form-control"
                                 value="<?php echo !isset($data) ? '' : $data['Subject_name']; ?>">
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="inputStatus">Color</label>
+                                <label for="inputStatus">កែប្រែពណ៌</label>
                                 <select id="" name="color" class="form-control custom-select">
-                                    <option selected disabled>Select one</option>
+                                    <option selected disabled>--ជ្រើសរើស--</option>
                                     <option value="bg-primary"
                                         <?php echo !isset($data) ? '' : ($data['Color'] == 'bg-primary' ? 'selected' : ''); ?>>
                                         Primary</option>

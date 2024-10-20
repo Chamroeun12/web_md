@@ -33,7 +33,7 @@ if (isset($_GET['user_id'])) {
     <div class="container-fluid">
         <div class="row mb-2 card-header">
             <div class="col-sm-6">
-                <h1 class="m-0">|Edit User</h1>
+                <h1 class="m-0">|ផ្ទាំងកែប្រែអ្នកប្រើប្រាស់</h1>
             </div>
             <!-- /.col -->
 
@@ -86,45 +86,17 @@ if (isset($_GET['user_id'])) {
                                         <?php echo !isset($data) ? '' : ($data['Role'] == 'user' ? 'selected' : ''); ?>>
                                         User</option>
                                 </select>
-                                <!-- <input type="text" id="role" class="form-control" name="role"> -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="row">
-                                <div class="col-md-8">
-                                    <span>Username</span>
-                                    <input type="text" id="username" name="username" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inputName">Password</label>
-                                        <input type="password" id="password" name="password" class="form-control"
-                                            value="">
-                                    </div>
-                                </div>
-                            </div> -->
-                    <!-- <div class="row">
-                                <div class="col-md-6">
-                                    <label for="">Role</label>
-                                    <input type="text" id="role" name="role" class="form-control" value="">
-                                </div>
-                            </div> -->
-
-                </div>
-                <!-- <?php if ($_SESSION['role'] == "admin") { ?>
+                                <!-- <?php if ($_SESSION['role'] == "admin") { ?>
                             <?php if (isset($_GET['student_id'])) { ?>
                                 <input type="submit" value="Delete" name="btndelete"
                                     onclick="return confirm('Do you want to delete this record?')" class="btn btn-danger">
                             <?php } ?>
                         <?php } ?> -->
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="btnsave">Save</button>
-            </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">បិទ</button>
+                                <button type="submit" class="btn1 bg-sis text-white" name="btnsave">រក្សាទុក</button>
+                            </div>
         </form>
     </div>
     </div>

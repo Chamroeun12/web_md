@@ -5,63 +5,44 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// if (isset($_POST['name_search'])) {
-//     $sql = "SELECT * FROM tb_student WHERE En_name LIKE '%" . $_POST['name_search'] . "' ";
-//     $stmt = $conn->prepare($sql);
-//     $stmt->execute();
-//     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// } else {
-//     $sql = "SELECT * FROM tb_student";
-//     if (isset($_GET['page'])) {
-//         if ($_GET['page'] > 1) {
-//             $sql .= " OFFSET " . ($_GET['page'] - 1) * 10;
-//         }
-//     }
-//     $stmt = $conn->prepare($sql);
-//     $stmt->execute();
-//     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// }
-
-
 // Insert Student
 if (isset($_POST['btnsave'])) {
-  $file_name = $_FILES['image']['name'];
-  $tempname = $_FILES['image']['tmp_name'];
-  $folder = 'images/' . $file_name;
+    $file_name = $_FILES['image']['name'];
+    $tempname = $_FILES['image']['tmp_name'];
+    $folder = 'images/' . $file_name;
 
-  $sql = "INSERT INTO tb_student(Stu_code, En_name, Kh_name, Gender, DOB, Address, Dad_name, Mom_name, Dad_job, Mom_job, Phone, Profile_img, status)
+    $sql = "INSERT INTO tb_student(Stu_code, En_name, Kh_name, Gender, DOB, Address, Dad_name, Mom_name, Dad_job, Mom_job, Phone, Profile_img, status)
   VALUES(:stucode, :En_name, :Kh_name, :Gender, :DOB, :Address, :Dad_name, :Mom_name, :Dad_job, :Mom_job, :Phone, :Profile_img, :status)";
 
-  $stmt = $conn->prepare($sql);
-  $stmt->bindParam(":stucode", $_POST['studentcode'], PDO::PARAM_STR);
-  $stmt->bindParam(":En_name", $_POST['en_name'], PDO::PARAM_STR);
-  $stmt->bindParam(":Kh_name", $_POST['kh_name'], PDO::PARAM_STR);
-  $stmt->bindParam(":Gender", $_POST['gender'], PDO::PARAM_STR);
-  $stmt->bindParam(":DOB", $_POST['dob'], PDO::PARAM_STR);
-  $stmt->bindParam(":Address", $_POST['address'], PDO::PARAM_STR);
-  $stmt->bindParam(":Dad_name", $_POST['dad_name'], PDO::PARAM_STR);
-  $stmt->bindParam(":Mom_name", $_POST['mom_name'], PDO::PARAM_STR);
-  $stmt->bindParam(":Dad_job", $_POST['dad_job'], PDO::PARAM_STR);
-  $stmt->bindParam(":Mom_job", $_POST['mom_job'], PDO::PARAM_STR);
-  $stmt->bindParam(":Phone", $_POST['phone'], PDO::PARAM_STR);
-  $stmt->bindParam(":status", $_POST['status'], PDO::PARAM_STR);
-  $stmt->bindParam(":Profile_img", $file_name, PDO::PARAM_STR);
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":stucode", $_POST['studentcode'], PDO::PARAM_STR);
+    $stmt->bindParam(":En_name", $_POST['en_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":Kh_name", $_POST['kh_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":Gender", $_POST['gender'], PDO::PARAM_STR);
+    $stmt->bindParam(":DOB", $_POST['dob'], PDO::PARAM_STR);
+    $stmt->bindParam(":Address", $_POST['address'], PDO::PARAM_STR);
+    $stmt->bindParam(":Dad_name", $_POST['dad_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":Mom_name", $_POST['mom_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":Dad_job", $_POST['dad_job'], PDO::PARAM_STR);
+    $stmt->bindParam(":Mom_job", $_POST['mom_job'], PDO::PARAM_STR);
+    $stmt->bindParam(":Phone", $_POST['phone'], PDO::PARAM_STR);
+    $stmt->bindParam(":status", $_POST['status'], PDO::PARAM_STR);
+    $stmt->bindParam(":Profile_img", $file_name, PDO::PARAM_STR);
 
-  // Execute and handle success/error
-  if ($stmt->execute() && move_uploaded_file($tempname, $folder)) {
-      $_SESSION['message'] = 'Student added successfully!';
-      $_SESSION['message_type'] = 'success';
-  } else {
-      $_SESSION['message'] = 'Failed to add student. Please try again.';
-      $_SESSION['message_type'] = 'error';
-  }
+    // Execute and handle success/error
+    if ($stmt->execute() && move_uploaded_file($tempname, $folder)) {
+        $_SESSION['message'] = 'Student added successfully!';
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = 'Failed to add student. Please try again.';
+        $_SESSION['message_type'] = 'error';
+    }
 
-  // Redirect to avoid resubmission
-  header('Location: student_list.php');
-  exit();
+    // Redirect to avoid resubmission
+    header('Location: student_list.php');
+    exit();
 }
 
-// Initialize variables
 // Initialize variables
 $status = '';
 $search = '';
@@ -83,9 +64,7 @@ if ($status) {
     $sql .= " WHERE tb_student.status = :status";
 }
 $sql .= " ORDER BY En_name ASC";
-
 $stmt = $conn->prepare($sql);
-
 if ($status) {
     $stmt->bindParam(':status', $status, PDO::PARAM_STR);
 }
@@ -220,15 +199,16 @@ if ($temp) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="inputEmail">រូបភាពសិស្ស</label>
-                                    <input type="file" class="form-control" id="image" name="image" accept="image/**" onchange="preview (event)">
-                                      <small>
+                                    <input type="file" class="form-control" id="image" name="image" accept="image/**"
+                                        onchange="preview (event)">
+                                    <small>
                                         <i class="icon-help-with-circle"></i>
                                         Extensions: .png, .jpg, .jpeg, .gif, .svg, .webp
-                                      </small>
-                                      <div style="margin-top: 9px">
+                                    </small>
+                                    <div style="margin-top: 9px">
                                         <img src="" alt="" id="img" width="150">
 
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -256,7 +236,7 @@ if ($temp) {
     <div class="row m-2">
         <div class="col-12">
             <div class="card">
-            <div class="card-header">
+                <div class="card-header">
                     <div class="card-tools">
                         <div class="form-group" style="width: 300px;">
                             <input type="text" name="namesearch" class="search form-control float-right"
@@ -276,7 +256,6 @@ if ($temp) {
                             </option>
                         </select>
                     </form>
-
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0 text-sm">
@@ -294,13 +273,12 @@ if ($temp) {
                                 <th>លេខទូរស័ព្ទ</th>
                                 <th>ស្ថានភាព</th>
                                 <th>សកម្មភាព</th>
-
                             </tr>
                         </thead>
                         <tbody id="showdata">
                             <?php foreach ($data as $key => $value) { ?>
-                            <tr>
-                                <td><?php
+                                <tr>
+                                    <td><?php
                                         if (isset($_GET['page']) && $_GET['page'] > 1)
                                             echo ($_GET['page'] - 1) * 10 + ($key + 1);
                                         else
@@ -314,60 +292,62 @@ if ($temp) {
                                                     style="width: 35px; height: 35px;" />
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td><?php echo $value['Stu_code']; ?></td>
-                                <td><?php echo $value['En_name']; ?></td>
-                                <td><?php echo $value['Kh_name']; ?></td>
-                                <td><?php echo $value['Gender']; ?></td>
-                                <td><?php echo date('d-M-Y', strtotime($value['DOB'])); ?></td>
-                                <td><?php echo $value['Address']; ?></td>
-                                <td><?php echo $value['Phone']; ?></td>
-                                <td>
-                                <?php if ($value['status'] == 'active') { ?>
-                                <span class="badge badge-success">Active</span>
-                                <?php } else { ?>
-                                <span class="badge badge-danger">Disable</span>
-                                <?php } ?>
-                            </td>
-                                <td>
-                                    <a href="update_student.php?stu_id=<?php echo $value['ID'] ?>">
-                                        <i class="fa fa-edit text-success"></i>
-                                    </a>
-                                    <a class="m-2" href="all_condition.php?stu_id=<?php echo $value['ID'] ?>"
-                                        onclick="return confirm('Do you want to delete this record?')">
-                                        <i class="fa fa-trash text-danger"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                        <!-- Previous link -->
-                        <li class="page-item">
-                            <a class="page-link" href="student_list.php?page=<?php echo isset($_GET['page']) && $_GET['page'] > 1 ? $_GET['page'] - 1 : 1; ?>">&laquo;</a>
-                        </li>
+                </td>
+                <td><?php echo $value['Stu_code']; ?></td>
+                <td><?php echo $value['En_name']; ?></td>
+                <td><?php echo $value['Kh_name']; ?></td>
+                <td><?php echo $value['Gender']; ?></td>
+                <td><?php echo date('d-M-Y', strtotime($value['DOB'])); ?></td>
+                <td><?php echo $value['Address']; ?></td>
+                <td><?php echo $value['Phone']; ?></td>
+                <td>
+                    <?php if ($value['status'] == 'active') { ?>
+                        <span class="badge badge-success">Active</span>
+                    <?php } else { ?>
+                        <span class="badge badge-danger">Disable</span>
+                    <?php } ?>
+                </td>
+                <td>
+                    <a href="update_student.php?stu_id=<?php echo $value['ID'] ?>">
+                        <i class="fa fa-edit text-success"></i>
+                    </a>
+                    <a class="m-2" href="all_condition.php?stu_id=<?php echo $value['ID'] ?>"
+                        onclick="return confirm('Do you want to delete this record?')">
+                        <i class="fa fa-trash text-danger"></i>
+                    </a>
+                </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+            </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <ul class="pagination pagination-sm m-0 float-right">
+                    <!-- Previous link -->
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="student_list.php?page=<?php echo isset($_GET['page']) && $_GET['page'] > 1 ? $_GET['page'] - 1 : 1; ?>">&laquo;</a>
+                    </li>
 
-                        <!-- Page links -->
-                        <?php for ($i = 1; $i <= $maxpage; $i++): ?>
-                            <li class="page-item <?php echo isset($_GET['page']) && $_GET['page'] == $i ? 'active' : ''; ?>">
-                                <a class="page-link" href="student_list.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
-
-                        <!-- Next link -->
-                        <li class="page-item">
-                            <a class="page-link" href="student_list.php?page=<?php echo isset($_GET['page']) && $_GET['page'] < $maxpage ? $_GET['page'] + 1 : $maxpage; ?>">&raquo;</a>
+                    <!-- Page links -->
+                    <?php for ($i = 1; $i <= $maxpage; $i++): ?>
+                        <li class="page-item <?php echo isset($_GET['page']) && $_GET['page'] == $i ? 'active' : ''; ?>">
+                            <a class="page-link" href="student_list.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                         </li>
-                    </ul>
-                </div>
+                    <?php endfor; ?>
+
+                    <!-- Next link -->
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="student_list.php?page=<?php echo isset($_GET['page']) && $_GET['page'] < $maxpage ? $_GET['page'] + 1 : $maxpage; ?>">&raquo;</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- /.card -->
+    </div>
+    <!-- /.card -->
     </div>
     </div>
     <!-- /.row -->
@@ -375,9 +355,10 @@ if ($temp) {
 </div>
 
 <script>
-function preview(evt) {
-    let img = document.getElementById('img');
-    img.src = URL.createObjectURL(evt.target.files[0]);
-}
+    function preview(evt) {
+        let img = document.getElementById('img');
+        img.src = URL.createObjectURL(evt.target.files[0]);
+    }
 </script>
+
 <?php include_once "footer.php"; ?>
