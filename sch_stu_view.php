@@ -44,7 +44,7 @@ $class = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <select name="classid" id="" class="form-control custom-select">
                         <option selected disabled>--ជ្រើសរើស--</option>
                         <?php foreach ($class as $row) { ?>
-                        <option value="<?= $row['ClassID']; ?>"><?= $row['Class_name']; ?></option>
+                            <option value="<?= $row['ClassID']; ?>"><?= $row['Class_name']; ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -60,7 +60,7 @@ $class = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </form>
 
     <!-- /.row -->
-    <?php if (isset($sch)) { ?>
+
     <div class="row m-2">
         <!-- <div class="form-group" style="width: 300px;">
                             <input type="text" id="" name="namesearch" class="search form-control float-right"
@@ -68,8 +68,8 @@ $class = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="input-group-append">
                             </div>
                         </div> -->
-
         <!-- /.card-header -->
+
         <div class="card-body table-responsive p-0 text-sm mt-1">
             <table class="table table-hover text-nowrap text-center" style="font-family:Khmer OS Siemreap;"
                 id="userTbl">
@@ -106,25 +106,26 @@ $class = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1;
+                    <?php if (isset($sch)) { ?>
+                        <?php $i = 1;
                         foreach ($sch as $row): ?>
-                    <tr style="height: 60px;">
-                        <td class="table-secondary align-middle">
-                            <?php echo date('h:i', strtotime($row['Time_in'])); ?> -
-                            <?php echo date('h:i A', strtotime($row['Time_out'])); ?>
-                        </td>
-                        <!-- <td><?php echo $row['Time_in']; ?>:<?php echo $row['Time_out']; ?></td> -->
-                        <td class="align-middle">
-                            <div class="day">
-                                <?php echo $row['Monday']; ?>
-                            </div>
-                        </td>
-                        <td class="align-middle"><?php echo $row['Tuesday']; ?></td>
-                        <td class="align-middle"><?php echo $row['Wednesday']; ?></td>
-                        <td class="align-middle"><?php echo $row['Thursday']; ?></td>
-                        <td class="align-middle"><?php echo $row['Friday']; ?></td>
-                        <td class="align-middle">
-                            <!-- <form action="report_att.php" method="POST">
+                            <tr style="height: 60px;">
+                                <td class="table-secondary align-middle">
+                                    <?php echo date('h:i', strtotime($row['Time_in'])); ?> -
+                                    <?php echo date('h:i A', strtotime($row['Time_out'])); ?>
+                                </td>
+                                <!-- <td><?php echo $row['Time_in']; ?>:<?php echo $row['Time_out']; ?></td> -->
+                                <td class="align-middle">
+                                    <div class="day">
+                                        <?php echo $row['Monday']; ?>
+                                    </div>
+                                </td>
+                                <td class="align-middle"><?php echo $row['Tuesday']; ?></td>
+                                <td class="align-middle"><?php echo $row['Wednesday']; ?></td>
+                                <td class="align-middle"><?php echo $row['Thursday']; ?></td>
+                                <td class="align-middle"><?php echo $row['Friday']; ?></td>
+                                <td class="align-middle">
+                                    <!-- <form action="report_sch.php" method="POST">
                                         <button type="submit" name="export_pdf" title="PDF"
                                             style="border:none; background: transparent; padding:0px;"><i
                                                 class="fa fa-file-pdf text-danger ml-1" style=" font-size: 18px;"></i>
@@ -137,20 +138,18 @@ $class = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
                                     </form> -->
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php } else {
+                        echo '<tr><td colspan="7" style="text-align:center;">គ្មានទិន្នន័យ</td></tr>';
+                    } ?>
                 </tbody>
             </table>
         </div>
         <!-- /.card -->
     </div>
-    <?php } else { ?>
-    <div class="noshow">
-        <h2>គ្មានទិន្នន័យ</h2>
 
-    </div>
-    <?php } ?>
     <!-- /.row -->
 </section>
 </div>

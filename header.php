@@ -350,17 +350,15 @@ include 'connection.php';
                                 style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
                                 <li class="nav-item">
                                     <a href="sch_add.php" class="nav-link ">
-
-                                        <p class="stu-list text-white pl-2">បញ្ចូលកាលវិភាគ</p>
+                                        <p class="text-white pl-2">បញ្ចូលកាលវិភាគ</p>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview"
                                 style="background-color:#5b6684; border-radius: 10px 0px 0px 10px;">
                                 <li class="nav-item">
-                                    <a href="sch_list.php" class="nav-link ">
-
-                                        <p class="stu-list text-white pl-2">បង្ហាញកាលវិភាគ</p>
+                                    <a href="sch_stu_view.php" class="nav-link">
+                                        <p class="text-white pl-2">បង្ហាញកាលវិភាគ</p>
                                     </a>
                                 </li>
                             </ul>
